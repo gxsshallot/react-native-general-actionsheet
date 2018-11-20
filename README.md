@@ -1,7 +1,6 @@
 # react-native-general-actionsheet
 
-[![npm version](https://img.shields.io/npm/v/react-native-general-actionsheet.svg?style=flat)](https://www.npmjs.com/package/react-
-native-general-actionsheet)
+[![npm version](https://img.shields.io/npm/v/react-native-general-actionsheet.svg?style=flat)](https://www.npmjs.com/package/react-native-general-actionsheet)
 
 This is a general ActionSheet api. It uses [ActionSheetIOS](https://facebook.github.io/react-native/docs/actionsheetios) in iOS. And use a custom view in Android.
 
