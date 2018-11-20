@@ -1,0 +1,21 @@
+{
+    "name": "react-native-general-actionsheet",
+    "version": "1.0.0",
+    "private": false,
+    "description": "ActionSheet api on Android same as ActionSheetIOS.",
+    "main": "ActionSheet.js",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/gaoxiaosong/react-native-general-actionsheet.git"
+    },
+    "author": "Xiaosong Gao",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/gaoxiaosong/react-native-general-actionsheet/issues",
+        "email": "gaoxiaosong06@gmail.com"
+    },
+    "homepage": "https://github.com/gaoxiaosong/react-native-general-actionsheet#readme",
+    "dependencies": {
+        "react-native-root-siblings": "^3.1.6"
+    }
+}
