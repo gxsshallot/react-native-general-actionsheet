@@ -31,3 +31,7 @@ if (Platform.OS !== 'ios') {
 }
 
 export default ActionSheet;
+
+export {
+    AndroidContainer,
+};

@@ -1,33 +1,50 @@
 import React from 'react';
-import { StyleSheet, View, Text, TouchableHighlight, Modal } from 'react-native';
+import { StyleSheet, View, Text, TouchableHighlight, TouchableWithoutFeedback, Modal } from 'react-native';
 
 export default class extends React.PureComponent {
+    static defaultProps = {
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        destructiveButtonStyle: {
+            fontSize: 14,
+            color: '#d11f1f',
+        },
+        cancelButtonStyle: {
+        },
+        touchableUnderlayColor: '#dddddd',
+        supportedOrientations: ['portrait', 'landscape'],
+    };
+
     render() {
-        const { title, message, options, cancelButtonIndex } = this.props.config;
+        const { config, backgroundColor, supportedOrientations } = this.props;
+        const { title, message, options, cancelButtonIndex } = config;
+        const closeFunc = this._click.bind(this, cancelButtonIndex);
         return (
             <Modal
                 visible={true}
-                supportedOrientations={['portrait', 'landscape']}
-                onRequestClose={this._click.bind(this, cancelButtonIndex)}
+                supportedOrientations={supportedOrientations}
+                onRequestClose={closeFunc}
                 transparent={true}
                 animationType={'slide'}
             >
-                <View style={styles.content}>
-                    {title && (
-                        <View style={styles.title}>
-                            <Text style={styles.titleText}>
-                                {title}
-                            </Text>
-                        </View>
-                    )}
-                    {message && (
-                        <View style={styles.message}>
-                            <Text>
-                                {message}
-                            </Text>
-                        </View>
-                    )}
-                    <View>
+                <View style={[styles.view, {backgroundColor}]}>
+                    <TouchableWithoutFeedback style={styles.touch} onPress={closeFunc}>
+                        <View style={styles.touchview} />
+                    </TouchableWithoutFeedback>
+                    <View style={styles.content}>
+                        {title && (
+                            <View style={styles.title} key={'title'}>
+                                <Text style={styles.titleText}>
+                                    {title}
+                                </Text>
+                            </View>
+                        )}
+                        {message && (
+                            <View style={styles.message} key={'message'}>
+                                <Text>
+                                    {message}
+                                </Text>
+                            </View>
+                        )}
                         {options.map(this._renderItem)}
                     </View>
                 </View>
@@ -36,25 +53,26 @@ export default class extends React.PureComponent {
     }
 
     _renderItem = (item, index) => {
-        const { destructiveButtonIndex, cancelButtonIndex } = this.props.config;
+        const { config, destructiveButtonStyle, cancelButtonStyle, touchableUnderlayColor } = this.props;
+        const { destructiveButtonIndex, cancelButtonIndex } = config;
         const isCancel = index === cancelButtonIndex;
         const isDestructive = index === destructiveButtonIndex;
+        const textStyle = isCancel ? cancelButtonStyle :
+            isDestructive ? destructiveButtonStyle :
+            null;
         return (
-            <View
+            <TouchableHighlight
                 key={index}
-                style={isCancel ? styles.cancelBtn : null}
+                style={[styles.button, isCancel ? styles.cancelBtn : null]}
+                underlayColor={touchableUnderlayColor}
+                onPress={this._click.bind(this, index)}
             >
-                <TouchableHighlight
-                    style={styles.btn}
-                    underlayColor='#dddddd'
-                    onPress={this._click.bind(this, index)}
-                >
-                    <Text style={isDestructive ? styles.destructiveBtn : null}>
+                <View style={styles.buttonView}>
+                    <Text style={textStyle}>
                         {item}
                     </Text>
-                </TouchableHighlight>
-                {isCancel && <View style={styles.cancelBtnMask} />}
-            </View>
+                </View>
+            </TouchableHighlight>
         );
     };
 
@@ -64,18 +82,25 @@ export default class extends React.PureComponent {
 }
 
 const styles = StyleSheet.create({
+    view: {
+        flex: 1,
+    },
+    touch: {
+        flex: 1,
+    },
+    touchview: {
+        flex: 1,
+        backgroundColor: 'transparent',
+    },
     content: {
-        position: 'absolute',
-        left: 0,
-        right: 0,
-        bottom: 0,
-        backgroundColor: 'white'
+        flex: 0,
     },
     title: {
         justifyContent: 'center',
         alignItems: 'center',
         marginTop: 15,
-        marginBottom: 15
+        marginBottom: 15,
+        backgroundColor: 'white',
     },
     titleText: {
         fontWeight: '500'
@@ -83,10 +108,10 @@ const styles = StyleSheet.create({
     message: {
         justifyContent: 'center',
         alignItems: 'center',
-        marginBottom: 15
+        marginBottom: 15,
+        backgroundColor: 'white',
     },
-    btn: {
-        flex: 1,
+    button: {
         alignItems: 'center',
         justifyContent: 'center',
         paddingHorizontal: 16,
@@ -96,23 +121,11 @@ const styles = StyleSheet.create({
         borderTopColor: '#e6e8ea',
         backgroundColor: 'white'
     },
+    buttonView: {
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
     cancelBtn: {
         marginTop: 9,
-        position: 'relative'
-    },
-    cancelBtnMask: {
-        position: 'absolute',
-        top: -9,
-        left: 0,
-        right: 0,
-        height: 9,
-        backgroundColor: 'rgba(0, 0, 0, 0.2)',
-        borderStyle: 'solid',
-        borderTopWidth: 1,
-        borderTopColor: '#dddddd'
-    },
-    destructiveBtn: {
-        color: '#d11f1f',
-        fontSize: 14,
     },
 });

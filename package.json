@@ -8,6 +8,10 @@
         "type": "git",
         "url": "https://github.com/gaoxiaosong/react-native-general-actionsheet.git"
     },
+    "keywords": [
+        "react native",
+        "actionsheet"
+    ],
     "author": "Xiaosong Gao",
     "license": "MIT",
     "bugs": {
