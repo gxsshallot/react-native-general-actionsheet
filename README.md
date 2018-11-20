@@ -10,9 +10,9 @@ It only support `ActionSheet.showActionSheetWithOptions` now.
 
 <p float="left">
 
-<img src="/resource/iOS.png" width="45%">
+<img src="/resource/iOS.png" height="400px">
 
-<img src="/resource/Android.jpeg" width="45%">
+<img src="/resource/Android.jpeg" height="400px">
 
 </p>
 
