@@ -26,17 +26,17 @@ It only support `ActionSheet.showActionSheetWithOptions` now.
 
 <p float="left">
 
-<img src="/resource/iOS-1-L.png" height="600px">
+<img src="/resource/iOS-1-L.png" width="45%">
 
-<img src="/resource/Android-1-L.jpeg" height="600px">
+<img src="/resource/iOS-2-L.png" width="45%">
 
 </p>
 
 <p float="left">
 
-<img src="/resource/iOS-2-L.png" height="600px">
+<img src="/resource/Android-1-L.jpeg" width="45%">
 
-<img src="/resource/Android-2-L.jpeg" height="600px">
+<img src="/resource/Android-2-L.jpeg" width="45%">
 
 </p>
 
