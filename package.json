@@ -1,8 +1,8 @@
 {
     "name": "react-native-general-actionsheet",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "private": false,
-    "description": "ActionSheet api on Android same as ActionSheetIOS.",
+    "description": "ActionSheet api on iOS and Android same as ActionSheetIOS.",
     "main": "index.js",
     "repository": {
         "type": "git",
