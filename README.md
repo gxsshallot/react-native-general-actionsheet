@@ -2,6 +2,8 @@
 
 [![npm version](https://img.shields.io/npm/v/react-native-general-actionsheet.svg?style=flat)](https://www.npmjs.com/package/react-native-general-actionsheet)
 
+[中文说明](https://www.jianshu.com/p/2377cca9a58c)
+
 This is a general ActionSheet api. You can use [ActionSheetIOS](https://facebook.github.io/react-native/docs/actionsheetios) in iOS and use a custom view in Android. Or you can use custom view in both iOS and Android.
 
 It only support `ActionSheet.showActionSheetWithOptions` now.
