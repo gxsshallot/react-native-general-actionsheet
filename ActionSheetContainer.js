@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dimensions, StyleSheet, View, Text, TouchableHighlight, TouchableWithoutFeedback, Modal } from 'react-native';
+import { Dimensions, Modal, ScrollView, StyleSheet, Text, TouchableHighlight, TouchableWithoutFeedback, View } from 'react-native';
 import { getSafeAreaInset } from 'react-native-pure-navigation-bar';
 
 export default class extends React.PureComponent {
@@ -27,7 +27,7 @@ export default class extends React.PureComponent {
         touchableUnderlayColor: '#dddddd',
         supportedOrientations: ['portrait', 'landscape'],
     };
-    
+
     constructor(props) {
         super(props);
         this.state = {
@@ -69,10 +69,11 @@ export default class extends React.PureComponent {
         const {width, height} = Dimensions.get('window');
         const inset = getSafeAreaInset();
         const { config } = this.props;
-        const { title, message, options, cancelButtonIndex } = config;
+        const { title, message, options, cancelButtonIndex, marginTop = 64 } = config;
         const contentStyle = {
             paddingHorizontal: 10,
             marginBottom: inset.bottom > 0 ? inset.bottom : 10,
+            maxHeight: height - marginTop,
         };
         if (this.state.isLandscape) {
             contentStyle.width = Math.max(width / 3, height - 10 * 2);
@@ -149,16 +150,18 @@ export default class extends React.PureComponent {
 
     _renderSection = (items, index, style) => {
         const {contentBackgroundColor: backgroundColor} = this.props;
+        const isArray = Array.isArray(items);
+        const Component = isArray ? ScrollView : View;
         return (
-            <View key={index} style={[styles.section, style, {backgroundColor}]}>
-                {items.map((item, innerIndex) => {
+            <Component key={index} style={[styles.section, style, {backgroundColor}]}>
+                {isArray ? items.map((item, innerIndex) => {
                     const views = [item];
                     if (innerIndex < items.length - 1) {
                         views.push(this._renderSeparatorLine('sepline' + innerIndex));
                     }
                     return views;
-                })}
-            </View>
+                }) : items}
+            </Component>
         );
     };
 
