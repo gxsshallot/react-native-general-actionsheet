@@ -1,0 +1,22 @@
+language: node_js
+node_js:
+ - "10"
+os:
+ - linux
+
+stages:
+ - name: deploy
+
+jobs:
+ include:
+   - stage: test
+     script:
+       - npm install -g eslint babel-eslint eslint-plugin-import eslint-plugin-react eslint-plugin-react-native
+       - eslint index.js ActionSheetContainer.js
+   - stage: deploy
+     deploy:
+       provider: npm
+       email: gaoxiaosong06@gmail.com
+       api_key: "$NPM_TOKEN"
+       on:
+         tags: true
