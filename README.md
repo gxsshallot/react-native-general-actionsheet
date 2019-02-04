@@ -1,6 +1,7 @@
 # react-native-general-actionsheet
 
 [![npm version](https://img.shields.io/npm/v/react-native-general-actionsheet.svg?style=flat)](https://www.npmjs.com/package/react-native-general-actionsheet)
+[![Build Status](https://travis-ci.org/gaoxiaosong/react-native-general-actionsheet.svg?branch=master)](https://travis-ci.org/gaoxiaosong/react-native-general-actionsheet)
 
 [中文说明](https://www.jianshu.com/p/2377cca9a58c)
 
