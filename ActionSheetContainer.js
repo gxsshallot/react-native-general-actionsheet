@@ -69,30 +69,29 @@ export default class extends React.PureComponent {
         const {width, height} = Dimensions.get('window');
         const inset = getSafeAreaInset();
         const { config } = this.props;
-        const { title, message, options, cancelButtonIndex, marginTop = 64 } = config;
+        const { title, message, options, cancelButtonIndex } = config;
         const contentStyle = {
             paddingHorizontal: 10,
             marginBottom: inset.bottom > 0 ? inset.bottom : 10,
-            maxHeight: height - marginTop,
+            marginTop: this.state.isLandscape ? inset.top + 10 : inset.top + 44,
         };
+        contentStyle.maxHeight = height - contentStyle.marginBottom - contentStyle.marginTop;
         if (this.state.isLandscape) {
             contentStyle.width = Math.max(width / 3, height - 10 * 2);
             contentStyle.alignSelf = 'center';
         }
-        const sections = [];
-        let section = [];
+        const section = [];
+        let cancelView = null;
         (title || message) && section.push(this._renderTitle(title, message));
         options.forEach((item, index) => {
             const itemView = this._renderItem(item, index);
             if (index === cancelButtonIndex) {
-                sections.push(section);
-                sections.push([itemView]);
-                section = [];
+                cancelView = itemView;
             } else {
                 section.push(itemView);
             }
         });
-        section.length > 0 && sections.push(section);
+        const sections = cancelView ? [section, cancelView] : [section];
         return (
             <View style={[styles.content, contentStyle]}>
                 {sections.map((section, index) => {
@@ -121,7 +120,7 @@ export default class extends React.PureComponent {
                     </Text>
                 )}
             </View>
-        )
+        );
     };
 
     _renderItem = (item, index) => {
@@ -130,8 +129,7 @@ export default class extends React.PureComponent {
         const isCancel = index === cancelButtonIndex;
         const isDestructive = index === destructiveButtonIndex;
         const textStyle = isCancel ? cancelButtonStyle :
-            isDestructive ? destructiveButtonStyle :
-            null;
+            isDestructive ? destructiveButtonStyle : null;
         return (
             <TouchableHighlight
                 key={index}
@@ -152,8 +150,15 @@ export default class extends React.PureComponent {
         const {contentBackgroundColor: backgroundColor} = this.props;
         const isArray = Array.isArray(items);
         const Component = isArray ? ScrollView : View;
+        const props = isArray ? {
+            bounces: false,
+        } : {};
         return (
-            <Component key={index} style={[styles.section, style, {backgroundColor}]}>
+            <Component
+                key={index}
+                style={[styles.section, style, {backgroundColor}]}
+                {...props}
+            >
                 {isArray ? items.map((item, innerIndex) => {
                     const views = [item];
                     if (innerIndex < items.length - 1) {
