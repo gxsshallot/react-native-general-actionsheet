@@ -5,14 +5,13 @@ os:
  - linux
 
 stages:
+ - test
  - name: deploy
+   if: tag IS present
 
 jobs:
  include:
    - stage: test
-     script:
-       - npm install -g eslint babel-eslint eslint-plugin-import eslint-plugin-react eslint-plugin-react-native
-       - eslint index.js ActionSheetContainer.js
    - stage: deploy
      deploy:
        provider: npm

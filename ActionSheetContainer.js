@@ -1,6 +1,6 @@
 import React from 'react';
 import { Dimensions, Modal, ScrollView, StyleSheet, Text, TouchableHighlight, TouchableWithoutFeedback, View } from 'react-native';
-import { getSafeAreaInset } from 'react-native-pure-navigation-bar';
+import { getSafeAreaInset } from 'react-native-safe-area-utility';
 
 export default class extends React.PureComponent {
     static defaultProps = {
@@ -94,11 +94,11 @@ export default class extends React.PureComponent {
         const sections = cancelView ? [section, cancelView] : [section];
         return (
             <View style={[styles.content, contentStyle]}>
-                {sections.map((section, index) => {
+                {sections.map((sectionItem, index) => {
                     const style = index > 0 ? {
                         marginTop: 9,
                     } : {};
-                    return this._renderSection(section, index, style);
+                    return this._renderSection(sectionItem, index, style);
                 })}
             </View>
         );

@@ -4,13 +4,16 @@
     "private": false,
     "description": "ActionSheet api on iOS and Android same as ActionSheetIOS.",
     "main": "index.js",
+    "scripts": {
+        "test": "./node_modules/.bin/eslint . --ext .js"
+    },
     "repository": {
         "type": "git",
         "url": "https://github.com/gaoxiaosong/react-native-general-actionsheet.git"
     },
     "keywords": [
-        "react native",
-        "actionsheet"
+        "React Native",
+        "ActionSheet"
     ],
     "author": "Xiaosong Gao",
     "license": "MIT",
@@ -20,7 +23,10 @@
     },
     "homepage": "https://github.com/gaoxiaosong/react-native-general-actionsheet#readme",
     "dependencies": {
-        "react-native-pure-navigation-bar": "^1.4.6",
+        "react-native-safe-area-utility": "^1.0.0",
         "react-native-root-siblings": "^3.1.6"
+    },
+    "devDependencies": {
+        "eslint-plugin-automatic": "latest"
     }
 }
