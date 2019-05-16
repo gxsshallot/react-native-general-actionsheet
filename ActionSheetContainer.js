@@ -1,6 +1,6 @@
 import React from 'react';
 import { Dimensions, Modal, ScrollView, StyleSheet, Text, TouchableHighlight, TouchableWithoutFeedback, View } from 'react-native';
-import { getSafeAreaInset } from 'react-native-safe-area-utility';
+import { getSafeAreaInset, isLandscape } from 'react-native-safe-area-utility';
 
 export default class extends React.PureComponent {
     static defaultProps = {
@@ -30,17 +30,18 @@ export default class extends React.PureComponent {
 
     constructor(props) {
         super(props);
+        this.onWindowChange = this._onWindowChange.bind(this);
         this.state = {
-            isLandscape: this._isLandscape(),
+            isLandscape: isLandscape(),
         };
     }
 
     componentDidMount() {
-        Dimensions.addEventListener('change', this._onWindowChange);
+        Dimensions.addEventListener('change', this.onWindowChange);
     }
 
     componentWillUnmount() {
-        Dimensions.removeEventListener('change', this._onWindowChange);
+        Dimensions.removeEventListener('change', this.onWindowChange);
     }
 
     render() {
@@ -146,7 +147,7 @@ export default class extends React.PureComponent {
         );
     };
 
-    _renderSection = (items, index, style) => {
+    _renderSection(items, index, style) {
         const {contentBackgroundColor: backgroundColor} = this.props;
         const isArray = Array.isArray(items);
         const Component = isArray ? ScrollView : View;
@@ -168,25 +169,25 @@ export default class extends React.PureComponent {
                 }) : items}
             </Component>
         );
-    };
+    }
 
-    _renderSeparatorLine = (key) => {
+    _renderSeparatorLine(key) {
         const {separatorColor: backgroundColor} = this.props;
-        return <View key={key} style={[styles.seperator, {backgroundColor}]} />;
-    };
+        return (
+            <View
+                key={key}
+                style={[styles.seperator, {backgroundColor}]}
+            />
+        );
+    }
 
-    _click = (index) => {
+    _click(index) {
         this.props.callback && this.props.callback(index);
-    };
+    }
 
-    _isLandscape = () => {
-        const { width, height } = Dimensions.get('window');
-        return width > height;
-    };
-
-    _onWindowChange = () => {
-        this.setState({isLandscape: this._isLandscape()});
-    };
+    _onWindowChange() {
+        this.setState({isLandscape: isLandscape()});
+    }
 }
 
 const styles = StyleSheet.create({
