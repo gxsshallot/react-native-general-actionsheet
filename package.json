@@ -27,6 +27,7 @@
         "react-native-root-siblings": "^3.1.6"
     },
     "devDependencies": {
-        "eslint-plugin-automatic": "latest"
+        "eslint-plugin-automatic": "latest",
+        "react": "latest"
     }
 }
